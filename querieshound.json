@@ -1,0 +1,14 @@
+{
+    "queries": [
+        {
+            "name": "Find computers with unsupported operating systems that logged in within the last 90 days",
+            "category": "Domain Information",
+            "queryList": [
+                {
+                    "final": true,
+                    "query": "MATCH (n:Computer) WHERE n.operatingsystem =~ "(?i).*(2000|2003|2008|xp|vista|7|me).*" AND n.lastlogon > (datetime().epochseconds - (90 * 86400)) RETURN n"
+                }
+            ]
+        }
+    ]
+}
