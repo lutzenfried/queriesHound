@@ -13,12 +13,22 @@
         
         },
         {
-            "name": "Find privileged account not member of Protected Users Group",
+            "name": "Find privileged account member of Protected Users Group",
             "category":"Domain Information",
             "queryList": [
                 {
                     "final": true,
-                    "query": "MATCH p=shortestPath((n:User)-[:MemberOf]->(g:Group)) WHERE g.highvalue=true RETURN p"
+                    "query": "MATCH ((n:User)-[:MemberOf]->(g:Group)) WHERE g.highvalue=true AND toUPPER (g.name) CONTAINS 'PROTECTED USERS' RETURN n"
+                }
+            ]
+        },
+        {
+            "name": "Find privileged account NOT member of Protected Users Group",
+            "category":"Domain Information",
+            "queryList": [
+                {
+                    "final": true,
+                    "query": "MATCH p=shortestPath((n:User)-[:MemberOf]->(g:Group)) WHERE g.highvalue=true AND toUPPER (g.name) CONTAINS 'PROTECTED' RETURN n"
                 }
             ]
         }
